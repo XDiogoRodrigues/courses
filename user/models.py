@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
+from course.models import Course
+
 
 class UserManager(BaseUserManager):
 
@@ -37,6 +39,9 @@ class CustomUser(AbstractUser):
     email = models.EmailField('E-mail', unique=True)
     fone = models.CharField('Telefone', max_length=20)
     is_staff = models.BooleanField('Membro da equipe', default=True)
+    balance = models.DecimalField('Saldo', max_digits=10, decimal_places=2, default=0)
+    courses = models.ManyToManyField(Course, related_name='courses', blank=True)
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name', 'fone']
