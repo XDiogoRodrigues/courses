@@ -4,6 +4,8 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 from course.models import Course
 
+from stdimage import StdImageField
+
 
 class UserManager(BaseUserManager):
 
@@ -41,6 +43,7 @@ class CustomUser(AbstractUser):
     is_staff = models.BooleanField('Membro da equipe', default=True)
     balance = models.DecimalField('Saldo', max_digits=10, decimal_places=2, default=0)
     courses = models.ManyToManyField(Course, related_name='courses', blank=True)
+    image = StdImageField('Imagem', upload_to='Images_user', variations={'thumbnail': {"width": 100, "height":100, "crop": True }}, blank=True)
 
 
     USERNAME_FIELD = 'email'

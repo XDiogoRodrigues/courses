@@ -5,8 +5,12 @@ from django.conf import settings
 from django.db.models import signals
 from django.template.defaultfilters import slugify
 
+from stdimage import StdImageField
+
+
 class Course(models.Model):
     name = models.CharField('Nome', max_length=500)
+    image = StdImageField('Imagem', upload_to='images_user', variations={'thumbnail': {"width": 200, "height": 200, "crop": True}})
     slug = models.SlugField('Slug', max_length=500, editable=False)
     description = models.TextField('Descrição')
     quantity_classes = models.IntegerField('Quantidade de Aulas')
